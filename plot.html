@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plot CO2 graph</title>
+    <script src="node_modules/requirejs/require.js"></script>
+    <script>
+        "use strict";
+        requirejs.config({
+            paths: {
+                jquery: "node_modules/jquery/dist/jquery.min",
+                plotly: "node_modules/plotly.js/dist/plotly.min"
+            }
+        });
+        requirejs(['js/buildGraph-compiled'], function ({plot}) {
+            document.getElementById('logselect').addEventListener('submit',function(ev){
+                ev.preventDefault();
+                plot('target', document.getElementById('filename').value);
+            });
+        });
+    </script>
+    <style type="text/css">
+        #target {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<form action="javascript:void 0" id="logselect">
+    <label for="filename">Log file to render</label>
+    <input type="text" name="filename" id="filename" value="example.log">
+    <input type="submit" value="Open">
+</form>
+<div id="target"></div>
+</body>
+</html>
