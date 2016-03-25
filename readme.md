@@ -27,9 +27,9 @@ Use stream redirection to save data series to file.
 
 ### Visualizing
 
-* install npm dependencies `npm install
+* install npm dependencies `npm install`
 * start server `python -m SimpleHTTPServer 8088`
-* open browser at http://localhost:8088/plot.html
+* open browser at [[http://localhost:8088/plot.html]]
 * select your log file in input field 
 
 ## Licence
