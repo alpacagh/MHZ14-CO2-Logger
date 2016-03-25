@@ -1,6 +1,6 @@
 # Example MH-Z14 CO2 sensor reader and visualizer
 
-* Read data from com-connected MH-Z14 sensor using python,
+* Read data from UART(serial)-connected MH-Z14 sensor using python,
 * visualize received data using html and plotly.js library.
 
 ## Usage
