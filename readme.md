@@ -6,6 +6,8 @@
 ## Screenshot of example data
 ![example](https://cloud.githubusercontent.com/assets/670789/14087148/39050c52-f531-11e5-91cd-ddc8fef7f94a.png)
 
+(peak at 6:50 AM is when my cat walked over my desktop and probably sniffed the sensor)
+
 ## Usage
 
 ### Connection
