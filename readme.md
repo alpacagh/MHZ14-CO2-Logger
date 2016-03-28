@@ -3,6 +3,9 @@
 * Read data from UART(serial)-connected MH-Z14 sensor using python,
 * visualize received data using html and plotly.js library.
 
+## Screenshot of example data
+![example](https://cloud.githubusercontent.com/assets/670789/14087148/39050c52-f531-11e5-91cd-ddc8fef7f94a.png)
+
 ## Usage
 
 ### Connection
