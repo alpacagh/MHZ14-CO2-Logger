@@ -39,8 +39,15 @@
         var x = [];
         var y = [];
         raw.split("\n").map(function (line) {
+          if (!line.match(/^\d{4}-\d\d-\d\d \d{0,2}:\d\d:\d\d\s\d+\s/)) {
+            console.log('Invalid input line', line);
+            return false;
+          }
           var t = line.split('\t');
-          if (t.length < 2) return false;
+          if (parseInt(t[1]) > 3000) {
+            console.log('Invalid ppa value', t);
+            return false;
+          }
           x.push(t[0]);
           y.push(t[1]);
           return null;
@@ -55,7 +62,7 @@
   }
 
   function plot(target) {
-    var filename = arguments.length <= 1 || arguments[1] === undefined ? "example.log" : arguments[1];
+    var filename = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "example.log";
 
     if (typeof target == 'string') target = document.getElementById(target);
     var dataPromise = loadFile(filename);

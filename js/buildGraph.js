@@ -13,8 +13,15 @@ function loadFile(name) {
           let x = [];
           let y = [];
           raw.split("\n").map((line)=> {
+            if (!line.match(/^\d{4}-\d\d-\d\d \d{0,2}:\d\d:\d\d\s\d+\s/)) {
+              console.log('Invalid input line', line);
+              return false;
+            }
             let t = line.split('\t');
-            if (t.length < 2) return false;
+            if (parseInt(t[1])>3000) {
+              console.log('Invalid ppa value', t);
+              return false;
+            }
             x.push(t[0]);
             y.push(t[1]);
             return null;
