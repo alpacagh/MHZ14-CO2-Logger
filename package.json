@@ -1,5 +1,5 @@
 {
-  "version": "0",
+  "version": "1.0.0",
   "dependencies": {
     "plotly.js":"^1.7.0",
     "jquery":"^2.2.2",
