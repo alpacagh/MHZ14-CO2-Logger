@@ -1,4 +1,4 @@
-# Example MH-Z14 CO2 sensor reader and visualizer
+# Example MH-Z14 / MH-Z19 CO2 sensor reader and visualizer
 
 * Read data from UART(serial)-connected MH-Z14 sensor using python,
 * visualize received data using html and plotly.js library.
@@ -19,7 +19,7 @@ Can be connected to computer using almost any USB-UART converter if voltage matc
 ### Querying
 
 ```
-$ python CO2Reader.py /dev/ttyUSB0 10
+$ python2 CO2Reader.py /dev/ttyUSB0 10
 Connected to /dev/ttyUSB0
 2016-03-25 22:04:16     1134    69
 ...
@@ -33,9 +33,14 @@ Use stream redirection to save data series to file.
 ### Visualizing
 
 * install npm dependencies `npm install`
-* start server `python -m SimpleHTTPServer 8088`
+* start server `python2 -m SimpleHTTPServer 8088`
 * open browser at http://localhost:8088/plot.html
-* select your log file in input field 
+* select your log file in input field
+
+
+## Credits
+
+Forked from https://github.com/alpacagh/MHZ14-CO2-Logger
 
 ## Licence
 
