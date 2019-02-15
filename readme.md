@@ -1,6 +1,6 @@
 # Example MH-Z14 / MH-Z19 CO2 sensor reader and visualizer
 
-* Read data from UART(serial)-connected MH-Z14 sensor using python,
+* Read data from UART(serial)-connected MH-Z14 or MH-Z19 sensor using python,
 * visualize received data using html and plotly.js library.
 
 ## Screenshot of example data
@@ -37,6 +37,9 @@ Use stream redirection to save data series to file.
 * open browser at http://localhost:8088/plot.html
 * select your log file in input field
 
+## Photos
+
+![mhz-19](https://user-images.githubusercontent.com/862951/52826018-38e23800-3113-11e9-92f3-18c99c902ae5.jpg)
 
 ## Credits
 
