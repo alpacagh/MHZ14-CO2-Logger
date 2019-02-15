@@ -37,6 +37,33 @@ Use stream redirection to save data series to file.
 * open browser at http://localhost:8088/plot.html
 * select your log file in input field
 
+## Technical Specifications MH-Z19
+
+
+|          Attribute          |            Value            |
+|-----------------------------|-----------------------------|
+| Target gas                  | Carbon Dioxide CO2          |
+| Operating Voltage           | 3.6 to 5.5 Vdc              |
+| Operating current           | < 18mA average              |
+| Interface levels            | 3.3 Vdc                     |
+| Output signal format        | UART or PWM                 |
+| Preheat time                | 3 min                       |
+| Response time               | <60 s                       |
+| Accuracy                    | ± (50 ppm+5% reading value) |
+| Measuring range             | 0 to 5000 ppm               |
+| Operating temperature range | 0 to + 50°C                 |
+| Dimensions                  | 33mm×20mm×9mm(L×W×H)        |
+
+
+## Wiring
+
+| Function | UART / Signal | MH-Z19 pin |
+|----------|---------------|------------|
+| Vcc +5V  | +5V           | 6 Vin      |
+| GND      | GND           | 7 GND      |
+| UART     | TXD0          | 2 RXD      |
+| UART     | RXD0          | 3 TXD      |
+
 ## Photos
 
 ![mhz-19](https://user-images.githubusercontent.com/862951/52826018-38e23800-3113-11e9-92f3-18c99c902ae5.jpg)
