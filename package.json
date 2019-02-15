@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
-    "plotly.js": "^1.7.0",
-    "jquery": "^2.2.2",
-    "requirejs": "^2.2.0"
+    "jquery": "^3.3.1",
+    "plotly.js": "^1.44.4",
+    "requirejs": "^2.3.6"
   },
   "devDependencies": {
     "babel-cli": "^6.0.0",
