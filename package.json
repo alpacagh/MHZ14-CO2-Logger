@@ -2,7 +2,7 @@
   "version": "0",
   "dependencies": {
     "plotly.js":"^1.7.0",
-    "jquery":"^2.2.2",
+    "jquery":"^3.5.0",
     "requirejs":"^2.2.0"
   },
   "devDependencies": {
