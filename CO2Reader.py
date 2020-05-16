@@ -1,7 +1,7 @@
+from typing import Optional
 import serial
 
 defaultPort = '/dev/ttyUSB0'
-
 
 class MHZ14Reader:
     """
@@ -9,19 +9,19 @@ class MHZ14Reader:
     No calibration method provided to avoid accidental sensor bricking (calibrating to wrong levels)
     """
 
-    _requestSequence = [0xff, 0x01, 0x86, 0x00, 0x00, 0x00, 0x00, 0x00, 0x79]
-    """
-    https://www.google.com/#q=MH-Z14+datasheet+pdf
-    """
+    _requestSequence = bytes([0xff, 0x01, 0x86, 0x00, 0x00, 0x00, 0x00, 0x00, 0x79])
+    _calibrateZeroSequence = bytes([0xff, 0x01, 0x87, 0x00, 0x00, 0x00, 0x00, 0x00, 0x78])
+    _calibrateSpansequence = bytes([0xff, 0x01, 0x88, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
 
-    def __init__(self, port, open_connection=True):
+    port: str
+    link: Optional[serial.Serial] = None
+
+    def __init__(self, port: str, open_connection: bool = True):
         """
         :param string port: path to tty
         :param bool open_connection: should port be opened immediately
         """
         self.port = port
-        """TTY name"""
-        self.link = None
         """Connection with sensor"""
         if open_connection:
             self.connect()
@@ -41,24 +41,52 @@ class MHZ14Reader:
         """
         if self.link:
             self.link.close()
+        self.link = None
 
-    def _send_data_request(self):
-        """
-        Send data request control sequence
-        """
-        for byte in self._requestSequence:
-            self.link.write(chr(byte))
-
-    def get_status(self):
+    def get_status(self) -> Optional[dict]:
         """
         Read data from sensor
-        :return {ppa, t}|None:
+        :return {ppa, t, checksum}|None:
         """
-        self._send_data_request()
+        self.link.write(self._requestSequence)
         response = self.link.read(9)
         if len(response) == 9:
-            return {"ppa": ord(response[2]) * 0xff + ord(response[3]), "t": ord(response[4])}
+            return {
+                "ppa": response[2] * 0xff + response[3],
+                "t": response[4],
+                "checksum": self._validate_checksum(response),
+            }
         return None
+
+    def _checksum(self, msg: bytes) -> int:
+        """
+        Calculate message checksum
+        """
+        return 0xff - (sum(msg[i] for i in range(1, 7)) & 0xff) + 1  # formula from datasheet
+
+    def _validate_checksum(self, msg: bytes) -> bool:
+        """
+        Check if message contains correct checksum
+        """
+        return self._checksum(msg) == msg[8]
+
+    def zero_calibrationn(self):
+        """
+        Trigger zero calibration (0PPM for Z14, 400 PPM for Z19)
+        """
+        self.link.write(self._calibrateZeroSequence)
+
+    def span_calibration(self, value: int):
+        """
+        trigger span point calibration
+        :param value:
+        """
+        msg = bytearray(self._calibrateSpansequence)
+        if not (800 < value < 2200):
+            raise AssertionError("datasheet expects to use values between 1000 and 2000 ppm")
+        msg[3] = (value & 0xff00) >> 8
+        msg[4] = value & 0xff
+        self.link.write(msg)
 
 
 if __name__ == "__main__":
@@ -83,9 +111,14 @@ if __name__ == "__main__":
     while True:
         status = conn.get_status()
         if status:
-            print "%s\t%d\t%d" % (time.strftime("%Y-%m-%d %H:%M:%S"), status["ppa"], status["t"])
+            print("%s\t%d\t%d\t%s" % (
+                time.strftime("%Y-%m-%d %H:%M:%S"),
+                status["ppa"],
+                status["t"],
+                status["checksum"] and "valid" or "invalid"
+            ))
         else:
-            print "No data received"
+            print("No data received")
         sys.stdout.flush()
         if timeout != 0:
             time.sleep(timeout)
