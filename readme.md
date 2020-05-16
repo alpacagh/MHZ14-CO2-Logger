@@ -24,7 +24,9 @@ Connected to /dev/ttyUSB0
 2016-03-25 22:04:16     1134    69
 ...
 ```
-3 fields separated by tab: timestamp, CO2 concentration (ppm), internal sensor temperature (celsius?)
+4 fields separated by tab: timestamp, CO2 concentration (ppm), internal sensor temperature (celsius?), checksum validation result
+
+python script and library is expecting python 3.7+ and has dependency on pyserial 3.4 (may be installed via pip)
  
 Use stream redirection to save data series to file.
 
